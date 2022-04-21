@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <HeaderComponent/>
+    <!--Inserisco l'evento 'search' nel component genitore
+    e lo valorizzo con una funzione che specificherà nei methods in App.vue-->
+    <HeaderComponent @search='doSearch'/>
     <MainComponent/>
 </div>
  
@@ -15,6 +17,13 @@ export default {
   components: {
     HeaderComponent,
     MainComponent,
+  },
+  methods:{
+    /*La funzione avrà come parametro ciò che verrà inserito in
+    "textToSearch" */
+    doSearch(textToSearch){
+      console.log(textToSearch);
+    }
   }
 }
 </script>

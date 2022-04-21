@@ -3,7 +3,9 @@
     <h1>BOOLFLIX</h1>
     <!--Associamo all'input, attraverso la direttiva Vue "v-model", textTosearch-->
     <input v-model="textToSearch" type="text" placeholder="Ricerca per titolo">
-    <button>Cerca!</button>
+    <!--Tramite la direttiva @click associo al button la funzione "search" che andrò a
+    valorizzare nei methods-->
+    <button @click="search">Cerca!</button>
   </div>
 </template>
 
@@ -16,6 +18,14 @@ export default {
         barrad di ricerca, a stringa vuota*/
         textToSearch:''
       }
+    },
+    methods:{
+        /*La funzione invierà ciò che verrà scritto in textToSearch
+        al genitore nell'App.vue che sta ascoltando*/
+        search(){
+            //'search' è il nome dell'evento
+            this.$emit('search', this.textToSearch)
+        }
     }
 }
 </script>
@@ -29,6 +39,7 @@ export default {
 }
 .header h1{
   font-size: 100px;
+  margin: 20px auto 10px auto;
   color: #e50914;
   align-self: center;
 }
