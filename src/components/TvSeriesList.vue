@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-      <div class="card" v-for="oneSerie in TvSeries" :key="oneSerie.id">
+      <div class="card" v-for="oneSerie in tvSeries" :key="oneSerie.id">
           <h3>{{oneSerie.name}}</h3>
           <h4>{{oneSerie.original_name}}</h4>
           <p>{{oneSerie.original_language}}</p>
