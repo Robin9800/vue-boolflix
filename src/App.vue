@@ -4,9 +4,9 @@
     e lo valorizzo con una funzione che specificherò nei methods in App.vue-->
     <HeaderComponent @search='searching'/>
     <!-- 14 Collego la props 'films' al mainComponent
-    nell''App.vue' premettendo i ':'alla props. La props saràassociato a 'films'
-    contenuto nei data di App.vue-->
-    <MainComponent :films='films'/>
+    nell''App.vue' premettendo i ':'alla props. La props sarà associato a 'films'
+    contenuto nei data di App.vue (faccio la stessa cosa per le serie tv)-->
+    <MainComponent :films='arrayFilms' :tvSeries='arrayTvSeries'/>
 </div>
  
 </template>
@@ -30,7 +30,8 @@ export default {
       apiUrl: 'https://api.themoviedb.org/3/search/',
       apiKey: '7b0221641cd6cccd42ea4445b3c56e3d',
       // 11 Inserisco nei data 'films' inizializzato ad array vuoto
-      films: []
+      arrayFilms: [],
+      arrayTvSeries: []
     }
   },
   methods:{
@@ -41,7 +42,8 @@ export default {
       documentazione sul sito "themoviedb" */
       const params ={
         api_key: this.apiKey,
-        query: textToSearch
+        query: textToSearch,
+        language: "it-IT"
       }
       /* 10 Con queste riga di codice chiedo ad axios di prendere il valore
       di apiUrl + movie e i valori dei paramentri (params) */
@@ -50,7 +52,13 @@ export default {
         /* 12 Se lo stato del response è positivo allora l'array film otterrà
         del risultato di response.data*/
         if(response.status === 200){
-          this.films = response.data.result
+          this.arrayFilms = response.data.result
+        }
+      }),
+      axios.get(this.apiUrl + 'tv', {params}).then((response)=>{
+        console.log(response);
+        if(response.status === 200){
+          this.arrayTvSeries = response.data.result
         }
       })
     }
