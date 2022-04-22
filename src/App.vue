@@ -3,7 +3,10 @@
     <!-- 5 Inserisco l'evento 'search' nel component genitore
     e lo valorizzo con una funzione che specificherò nei methods in App.vue-->
     <HeaderComponent @search='searching'/>
-    <MainComponent/>
+    <!-- 14 Collego la props 'films' al mainComponent
+    nell''App.vue' premettendo i ':'alla props. La props saràassociato a 'films'
+    contenuto nei data di App.vue-->
+    <MainComponent :films='films'/>
 </div>
  
 </template>
@@ -25,7 +28,9 @@ export default {
       /*8 Inserisco nei data apiUrl e Apikey per poter fare la
       chiamata al sito dei film e serie */
       apiUrl: 'https://api.themoviedb.org/3/search/',
-      apiKey: '7b0221641cd6cccd42ea4445b3c56e3d'
+      apiKey: '7b0221641cd6cccd42ea4445b3c56e3d',
+      // 11 Inserisco nei data 'films' inizializzato ad array vuoto
+      films: []
     }
   },
   methods:{
@@ -38,8 +43,15 @@ export default {
         api_key: this.apiKey,
         query: textToSearch
       }
+      /* 10 Con queste riga di codice chiedo ad axios di prendere il valore
+      di apiUrl + movie e i valori dei paramentri (params) */
       axios.get(this.apiUrl + 'movie', {params}).then((response)=>{
         console.log(response);
+        /* 12 Se lo stato del response è positivo allora l'array film otterrà
+        del risultato di response.data*/
+        if(response.status === 200){
+          this.films = response.data.result
+        }
       })
     }
   }
